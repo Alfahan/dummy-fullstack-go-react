@@ -2,8 +2,8 @@ package main
 
 import (
 	"dummy-fullstack-go-react/backend-api/config"
-
-	"github.com/gin-gonic/gin"
+	"dummy-fullstack-go-react/backend-api/database"
+	"dummy-fullstack-go-react/backend-api/routes"
 )
 
 func main() {
@@ -11,19 +11,12 @@ func main() {
 	// Load config .env
 	config.LoadEnv()
 
-	//inisialiasai Gin
-	router := gin.Default()
+	database.InitDB()
 
-	//membuat route dengan method GET
-	router.GET("/", func(c *gin.Context) {
-
-		//return response JSON
-		c.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
-	})
+	// setup router
+	r := routes.SetupRoutes()
 
 	//mulai server
-	router.Run(":" + config.GetEnv("APP_PORT", "3000"))
+	r.Run(":" + config.GetEnv("APP_PORT", "3000"))
 
 }
