@@ -14,6 +14,8 @@ export const useRegister = () => {
         mutationFn: async (data: RegisterRequest) => {
             const response = await Api.post('/api/register', data);
 
+            console.log(response.data);
+
             return response.data;
         }
     });
